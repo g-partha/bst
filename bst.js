@@ -78,7 +78,7 @@ export class Tree {
     return this.searchRec(this.root, value);
   }
   levelOrder(callback) {
-    if(callback === undefined){
+    if (callback === undefined) {
       throw new Error("callback is required!");
     }
     if (this.root === null) return null;
@@ -90,5 +90,83 @@ export class Tree {
         queue.push(currentNode.left, currentNode.right);
       }
     }
+  }
+  inOrderRec(root, callback) {
+    if (root === null) return;
+    this.inOrderRec(root.left, callback);
+    callback(root);
+    this.inOrderRec(root.right, callback);
+  }
+  inOrder(callback) {
+    if (callback === undefined) {
+      throw new Error("callback is required!");
+    }
+    this.inOrderRec(this.root, callback);
+  }
+  preOrderRec(root, callback) {
+    if (root === null) return;
+    callback(root);
+    this.preOrderRec(root.left, callback);
+    this.preOrderRec(root.right, callback);
+  }
+  preOrder(callback) {
+    if (callback === undefined) {
+      throw new Error("callback is required!");
+    }
+    this.preOrderRec(this.root, callback);
+  }
+
+  postOrderRec(root, callback) {
+    if (root === null) return;
+    this.postOrderRec(root.left, callback);
+    this.postOrderRec(root.right, callback);
+    callback(root);
+  }
+  postOrder(callback) {
+    if (callback === undefined) {
+      throw new Error("callback is required!");
+    }
+    this.postOrderRec(this.root, callback);
+  }
+  findHeightRec(root) {
+    if (root === null) return -1;
+    let hL = 0;
+    let hR = 0;
+    if (root.left !== null) {
+      hL = 1 + this.findHeightRec(root.left);
+    }
+    if (root.right !== null) {
+      hR = 1 + this.findHeightRec(root.right);
+    }
+    if (hL > hR) {
+      return hL;
+    } else {
+      return hR;
+    }
+  }
+  height(value) {
+    const node = this.find(value);
+    return this.findHeightRec(node);
+  }
+  depth(value){
+    const height = this.height(value);
+    const heightRoot = this.findHeightRec(this.root);
+    return heightRoot - height;
+  }
+  heightDiff(root){
+    if(root === null) return null;
+    const heightLS = this.findHeightRec(root.left);
+    const heightRS = this.findHeightRec(root.right);
+    return Math.abs(heightLS - heightRS);
+  }
+  checkBalanced(root){
+    if(root === null) return null;
+    if(this.heightDiff(root) > 1) return false;
+    if(this.checkBalanced(root.left) === false) return false;
+    if(this.checkBalanced(root.right) === false) return false;
+    return true;
+  }
+  isBalanced(){
+    return this.checkBalanced(this.root);
   }
 }
