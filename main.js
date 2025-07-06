@@ -1,19 +1,32 @@
 import { Tree } from "./bst.js";
 import { prettyPrint } from "./pretty-print.js";
 
-const test = new Tree([1, 4, 8, 19, 24]);
-test.buildTree();
-test.insert(11);
-test.insert(30);
-test.insert(10);
-test.insert(31);
-test.insert(33);
-// test.deleteItem(8);
-console.log(test.find(19));
-test.postOrder((root) => console.log(root.data));
-console.log(test.height(10));
-console.log(test.depth(24));
-test.reBalance();
-console.log(test.isBalanced());
-console.log(test.root);
-prettyPrint(test.root);
+function bstRun() {
+  const test = new Tree([1, 55, 23, 98, 4, 7, 9, 13, 15, 17, 20, 33, 55, 68]);
+  test.buildTree();
+  console.log(test.isBalanced());
+  console.log("level order");
+  test.levelOrder((root) => console.log(root.data));
+  console.log("in order");
+  test.inOrder((root) => console.log(root.data));
+  console.log("pre order");
+  test.preOrder((root) => console.log(root.data));
+  console.log("post order");
+  test.postOrder((root) => console.log(root.data));
+  test.insert(109);
+  test.insert(195);
+  test.insert(156);
+  test.insert(675);
+  console.log(test.isBalanced());
+  test.reBalance();
+  console.log(test.isBalanced());
+  console.log("level order");
+  test.levelOrder((root) => console.log(root.data));
+  console.log("in order");
+  test.inOrder((root) => console.log(root.data));
+  console.log("pre order");
+  test.preOrder((root) => console.log(root.data));
+  console.log("post order");
+  test.postOrder((root) => console.log(root.data));
+}
+bstRun();

@@ -1,3 +1,5 @@
+import { mergeSort } from "./merge-sort.js";
+
 class Node {
   constructor(data) {
     this.data = data;
@@ -19,7 +21,13 @@ export class Tree {
     return rootNode;
   }
   buildTree() {
-    this.root = this.createBSTRec(this.array, 0, this.array.length - 1);
+    const arrayWithoutDuplicate = [];
+    for(let i = 0; i < this.array.length; i++){
+      if(arrayWithoutDuplicate.includes(this.array[i])) continue;
+      arrayWithoutDuplicate.push(this.array[i]);
+    }
+    const sortedArray = mergeSort(arrayWithoutDuplicate);
+    this.root = this.createBSTRec(sortedArray, 0, sortedArray.length - 1);
   }
   addNewNodeRec(root, value) {
     if (root === null) {
