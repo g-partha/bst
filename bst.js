@@ -169,4 +169,9 @@ export class Tree {
   isBalanced(){
     return this.checkBalanced(this.root);
   }
+  reBalance(){
+    this.array = [];
+    this.inOrder((root) => this.array.push(root.data));
+    this.buildTree();
+  }
 }
